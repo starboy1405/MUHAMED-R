@@ -1,0 +1,1800 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Online Food Ordering System</title>
+
+
+    <style>
+
+        /* =====================================
+           GLOBAL DESIGN
+        ===================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        body {
+            font-family:Georgia, 'Times New Roman', Times, serif;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #fff5f5,
+                    #f8f9fa
+                );
+
+            color: #222;
+        }
+
+
+        /* =====================================
+           HEADER
+        ===================================== */
+
+        header {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #e63946,
+                    #ff6b6b
+                );
+
+            color: white;
+
+            padding: 18px 7%;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            box-shadow:
+                0 4px 15px
+                rgba(0,0,0,0.15);
+
+        }
+
+
+        header h1 {
+
+            font-size: 28px;
+
+            letter-spacing: 1px;
+
+        }
+
+
+        nav {
+
+            display: flex;
+
+            gap: 10px;
+
+        }
+
+
+        nav button {
+
+            background: white;
+
+            color: #e63946;
+
+            border: none;
+
+            padding: 10px 18px;
+
+            border-radius: 25px;
+
+            font-size: 15px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+
+        }
+
+
+        nav button:hover {
+
+            transform:
+                translateY(-2px);
+
+            box-shadow:
+                0 5px 12px
+                rgba(0,0,0,0.2);
+
+        }
+
+
+        /* =====================================
+           HERO SECTION
+        ===================================== */
+
+        .hero {
+
+            min-height: 350px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: center;
+
+            align-items: center;
+
+            text-align: center;
+
+            padding: 50px 20px;
+
+            background:
+
+                linear-gradient(
+                    rgba(0,0,0,0.65),
+                    rgba(0,0,0,0.55)
+                ),
+
+                url("img/mainimg.jpg");
+
+            background-size: cover;
+
+            background-position: center;
+
+            color: white;
+
+        }
+
+
+        .hero h2 {
+
+            font-size: 50px;
+
+            margin-bottom: 15px;
+
+            text-shadow:
+                2px 3px 8px
+                rgba(0,0,0,0.5);
+
+        }
+
+
+        .hero p {
+
+            font-size: 20px;
+
+            margin-bottom: 25px;
+
+        }
+
+
+        .hero button {
+
+            background: #e63946;
+
+            color: white;
+
+            border: none;
+
+            padding: 14px 30px;
+
+            font-size: 17px;
+
+            border-radius: 30px;
+
+            cursor: pointer;
+
+            font-weight: bold;
+
+            transition: 0.3s;
+
+        }
+
+
+        .hero button:hover {
+
+            background: #c1121f;
+
+            transform:
+                scale(1.05);
+
+        }
+
+
+        /* =====================================
+           MAIN CONTAINER
+        ===================================== */
+
+        .container {
+
+            width: 90%;
+
+            max-width: 1200px;
+
+            margin: 50px auto;
+
+        }
+
+
+        .section-title {
+
+            text-align: center;
+
+            font-size: 32px;
+
+            margin-bottom: 35px;
+
+            color: #222;
+
+        }
+
+
+        /* =====================================
+           FOOD MENU
+        ===================================== */
+
+        .food-container {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    auto-fit,
+                    minmax(240px, 1fr)
+                );
+
+            gap: 25px;
+
+        }
+
+
+        .food-card {
+
+            background: white;
+
+            border-radius: 18px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 8px 25px
+                rgba(0,0,0,0.10);
+
+            text-align: center;
+
+            transition: 0.3s;
+
+            padding-bottom: 20px;
+
+        }
+
+
+        .food-card:hover {
+
+            transform:
+                translateY(-10px);
+
+            box-shadow:
+                0 15px 30px
+                rgba(0,0,0,0.18);
+
+        }
+
+
+        .food-card img {
+
+            width: 100%;
+
+            height: 190px;
+
+            object-fit: cover;
+
+        }
+
+
+        .food-card h3 {
+
+            margin-top: 18px;
+
+            font-size: 22px;
+
+        }
+
+
+        .food-card p {
+
+            margin: 10px;
+
+            color: #e63946;
+
+            font-size: 20px;
+
+            font-weight: bold;
+
+        }
+
+
+        .food-card button {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #e63946,
+                    #ff6b6b
+                );
+
+            color: white;
+
+            border: none;
+
+            padding: 11px 22px;
+
+            border-radius: 25px;
+
+            font-size: 15px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+
+        }
+
+
+        .food-card button:hover {
+
+            transform:
+                scale(1.05);
+
+        }
+
+
+        /* =====================================
+           CART SECTION
+        ===================================== */
+
+        .cart-section {
+
+            background: white;
+
+            padding: 30px;
+
+            border-radius: 20px;
+
+            box-shadow:
+                0 8px 25px
+                rgba(0,0,0,0.10);
+
+        }
+
+
+        .cart-section h2 {
+
+            text-align: center;
+
+            font-size: 32px;
+
+            margin-bottom: 25px;
+
+        }
+
+
+        .cart-item {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            background: #f8f9fa;
+
+            padding: 18px;
+
+            margin-bottom: 12px;
+
+            border-radius: 12px;
+
+            border-left:
+                5px solid #e63946;
+
+        }
+
+
+        .cart-item h3 {
+
+            margin-bottom: 8px;
+
+        }
+
+
+        .cart-buttons {
+
+            display: flex;
+
+            gap: 5px;
+
+            align-items: center;
+
+        }
+
+
+        .cart-buttons button {
+
+            border: none;
+
+            padding: 8px 12px;
+
+            border-radius: 6px;
+
+            cursor: pointer;
+
+            font-weight: bold;
+
+        }
+
+
+        .plus {
+
+            background: #28a745;
+
+            color: white;
+
+        }
+
+
+        .minus {
+
+            background: #ff9800;
+
+            color: white;
+
+        }
+
+
+        .remove {
+
+            background: #e63946;
+
+            color: white;
+
+        }
+
+
+        .total {
+
+            text-align: right;
+
+            margin-top: 25px;
+
+            font-size: 25px;
+
+            font-weight: bold;
+
+            color: #e63946;
+
+        }
+
+
+        .order-btn {
+
+            display: block;
+
+            margin:
+                25px 0 0 auto;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #e63946,
+                    #ff6b6b
+                );
+
+            color: white;
+
+            border: none;
+
+            padding: 14px 30px;
+
+            border-radius: 30px;
+
+            font-size: 17px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+
+        }
+
+
+        .order-btn:hover {
+
+            transform:
+                scale(1.05);
+
+        }
+
+
+        /* =====================================
+           ORDER HISTORY
+        ===================================== */
+
+        .order-history {
+
+            background: white;
+
+            padding: 30px;
+
+            border-radius: 20px;
+
+            box-shadow:
+                0 8px 25px
+                rgba(0,0,0,0.10);
+
+        }
+
+
+        .history-header {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 25px;
+
+            padding-bottom: 15px;
+
+            border-bottom:
+                2px solid #f1f1f1;
+
+        }
+
+
+        .history-header h2 {
+
+            font-size: 30px;
+
+        }
+
+
+        .clear-btn {
+
+            background: #e63946;
+
+            color: white;
+
+            border: none;
+
+            padding: 12px 25px;
+
+            border-radius: 25px;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+
+            white-space: nowrap;
+
+        }
+
+
+        .clear-btn:hover {
+
+            background: #c1121f;
+
+            transform:
+                scale(1.05);
+
+        }
+
+
+        .order {
+
+            background: #f8f9fa;
+
+            padding: 20px;
+
+            margin-bottom: 15px;
+
+            border-radius: 12px;
+
+            border-left:
+                6px solid #e63946;
+
+        }
+
+
+        .order h3 {
+
+            margin-bottom: 12px;
+
+            color: #e63946;
+
+        }
+
+
+        .order p {
+
+            margin: 7px 0;
+
+        }
+
+
+        /* =====================================
+           FOOTER
+        ===================================== */
+
+        footer {
+
+            margin-top: 60px;
+
+            background: #222;
+
+            color: white;
+
+            text-align: center;
+
+            padding: 25px;
+
+        }
+
+
+        /* =====================================
+           RESPONSIVE DESIGN
+        ===================================== */
+
+        @media(max-width: 700px) {
+
+            header {
+
+                flex-direction: column;
+
+                gap: 15px;
+
+                text-align: center;
+
+            }
+
+
+            .hero h2 {
+
+                font-size: 32px;
+
+            }
+
+
+            .hero p {
+
+                font-size: 16px;
+
+            }
+
+
+            .history-header {
+
+                flex-direction: column;
+
+                gap: 15px;
+
+            }
+
+
+            .clear-btn {
+
+                width: 100%;
+
+            }
+
+
+            .cart-item {
+
+                flex-direction: column;
+
+                align-items: flex-start;
+
+                gap: 15px;
+
+            }
+
+
+            .cart-buttons {
+
+                flex-wrap: wrap;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================
+         HEADER
+    ===================================== -->
+
+    <header>
+
+        <h1>
+            🍔 FoodExpress
+        </h1>
+
+
+        <nav>
+
+            <button onclick="scrollToMenu()">
+
+                🍽️ Menu
+
+            </button>
+
+
+            <button onclick="showCart()">
+
+                🛒 Cart
+                (<span id="cartCount">0</span>)
+
+            </button>
+
+        </nav>
+
+    </header>
+
+
+
+    <!-- =====================================
+         HERO SECTION
+    ===================================== -->
+
+    <section class="hero">
+
+        <h2>
+            Delicious Food, Delivered Fast
+        </h2>
+
+
+        <p>
+            Your favourite food is just one click away!
+        </p>
+
+
+        <button onclick="scrollToMenu()">
+
+            Order Now 🍔
+
+        </button>
+
+    </section>
+
+
+
+    <!-- =====================================
+         FOOD MENU
+    ===================================== -->
+
+    <div
+        class="container"
+        id="menu">
+
+        <h2 class="section-title">
+
+            🍽️ Popular Food Menu
+
+        </h2>
+
+
+        <div
+            class="food-container"
+            id="foodMenu">
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================
+         CART
+    ===================================== -->
+
+    <div class="container">
+
+        <div
+            class="cart-section"
+            id="cart">
+
+
+            <h2>
+                🛒 Your Cart
+            </h2>
+
+
+            <div id="cartItems">
+
+                <p>
+                    Your cart is empty.
+                </p>
+
+            </div>
+
+
+            <div class="total">
+
+                Total:
+                ₹<span id="total">0</span>
+
+            </div>
+
+
+            <button
+                class="order-btn"
+                onclick="placeOrder()">
+
+                Place Order 🚀
+
+            </button>
+
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================
+         ORDER HISTORY
+    ===================================== -->
+
+    <div class="container">
+
+        <div class="order-history">
+
+
+            <div class="history-header">
+
+                <h2>
+                    📦 Order History
+                </h2>
+
+
+                <button
+                    class="clear-btn"
+                    type="button"
+                    onclick="clearHistory()">
+
+                    🗑️ Clear History
+
+                </button>
+
+
+            </div>
+
+
+
+            <div id="orderList">
+
+                <p>
+                    No orders yet.
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================
+         FOOTER
+    ===================================== -->
+
+    <footer>
+
+        <p>
+            © 2026 FoodExpress |
+            Online Food Ordering System
+        </p>
+
+    </footer>
+
+
+
+    <!-- =====================================
+         JAVASCRIPT
+    ===================================== -->
+
+    <script>
+
+
+        /* =====================================
+           FOOD DATABASE
+        ===================================== */
+
+        const foodDatabase = [
+
+            {
+
+                id: 1,
+
+                name: "Idly",
+
+                price: 49,
+
+                image:
+                "img/idly.jpg"
+
+            },
+
+
+            {
+
+                id: 2,
+
+                name: "Dosa",
+
+                price: 99,
+
+                image:
+                "img/dosa.jpg"
+
+            },
+
+
+            {
+
+                id: 3,
+
+                name: "Poori",
+
+                price: 79,
+
+                image:
+                "img/poori.jpg"
+
+            },
+
+
+            {
+
+                id: 4,
+
+                name: "Pongal",
+
+                price: 69,
+
+                image:
+                "img/pongal.jpg"
+
+            },
+
+
+            {
+
+                id: 5,
+
+                name: "Vada",
+
+                price: 25,
+
+                image:
+                "img/vada.jpg"
+
+            },
+
+
+            {
+
+                id: 6,
+
+                name: "Tea",
+
+                price: 20,
+
+                image:
+                "img/tea.jpg"
+            },
+            {
+
+                id: 7,
+
+                name: "Veg Meals",
+
+                price: 149,
+
+                image:
+                "img/meals.jpg"
+            },
+            {
+
+                id: 8,
+
+                name: "Non-Veg Meals",
+
+                price: 299,
+
+                image:
+                "img/nonveg.jpg"
+            }
+
+        ];
+
+
+
+        /* =====================================
+           CART DATA
+        ===================================== */
+
+        let cart =
+
+            JSON.parse(
+                localStorage.getItem("cart")
+            )
+
+            || [];
+
+
+
+        /* =====================================
+           DISPLAY FOOD
+        ===================================== */
+
+        function displayFood() {
+
+
+            const foodMenu =
+
+                document.getElementById(
+                    "foodMenu"
+                );
+
+
+            foodMenu.innerHTML = "";
+
+
+            foodDatabase.forEach(function(food) {
+
+
+                foodMenu.innerHTML += `
+
+                    <div class="food-card">
+
+                        <img
+                            src="${food.image}"
+                            alt="${food.name}">
+
+
+                        <h3>
+
+                            ${food.name}
+
+                        </h3>
+
+
+                        <p>
+
+                            ₹${food.price}
+
+                        </p>
+
+
+                        <button
+                            onclick="addToCart(${food.id})">
+
+                            Add to Cart 🛒
+
+                        </button>
+
+                    </div>
+
+                `;
+
+
+            });
+
+
+        }
+
+
+
+        /* =====================================
+           ADD TO CART
+        ===================================== */
+
+        function addToCart(id) {
+
+
+            const food =
+
+                foodDatabase.find(
+                    item => item.id === id
+                );
+
+
+            const existingItem =
+
+                cart.find(
+                    item => item.id === id
+                );
+
+
+            if (existingItem) {
+
+                existingItem.quantity++;
+
+            }
+
+            else {
+
+                cart.push({
+
+                    id:
+                        food.id,
+
+                    name:
+                        food.name,
+
+                    price:
+                        food.price,
+
+                    quantity:
+                        1
+
+                });
+
+            }
+
+
+            saveCart();
+
+            displayCart();
+
+
+        }
+
+
+
+        /* =====================================
+           SAVE CART
+        ===================================== */
+
+        function saveCart() {
+
+
+            localStorage.setItem(
+
+                "cart",
+
+                JSON.stringify(cart)
+
+            );
+
+
+        }
+
+
+
+        /* =====================================
+           DISPLAY CART
+        ===================================== */
+
+        function displayCart() {
+
+
+            const cartItems =
+
+                document.getElementById(
+                    "cartItems"
+                );
+
+
+            const totalElement =
+
+                document.getElementById(
+                    "total"
+                );
+
+
+            const cartCount =
+
+                document.getElementById(
+                    "cartCount"
+                );
+
+
+            cartItems.innerHTML = "";
+
+
+            if (cart.length === 0) {
+
+
+                cartItems.innerHTML =
+
+                    "<p>Your cart is empty.</p>";
+
+
+                totalElement.innerText = "0";
+
+                cartCount.innerText = "0";
+
+
+                return;
+
+
+            }
+
+
+            let total = 0;
+
+            let totalItems = 0;
+
+
+            cart.forEach(function(item) {
+
+
+                const itemTotal =
+
+                    item.price *
+                    item.quantity;
+
+
+                total += itemTotal;
+
+
+                totalItems +=
+                    item.quantity;
+
+
+                cartItems.innerHTML += `
+
+                    <div class="cart-item">
+
+                        <div>
+
+                            <h3>
+
+                                ${item.name}
+
+                            </h3>
+
+
+                            <p>
+
+                                ₹${item.price}
+
+                                ×
+
+                                ${item.quantity}
+
+                                =
+
+                                ₹${itemTotal}
+
+                            </p>
+
+                        </div>
+
+
+                        <div class="cart-buttons">
+
+
+                            <button
+                                class="minus"
+                                onclick="changeQuantity(${item.id}, -1)">
+
+                                −
+
+                            </button>
+
+
+                            <button
+                                class="plus"
+                                onclick="changeQuantity(${item.id}, 1)">
+
+                                +
+
+                            </button>
+
+
+                            <button
+                                class="remove"
+                                onclick="removeItem(${item.id})">
+
+                                Remove
+
+                            </button>
+
+
+                        </div>
+
+
+                    </div>
+
+                `;
+
+
+            });
+
+
+            totalElement.innerText =
+                total;
+
+
+            cartCount.innerText =
+                totalItems;
+
+
+        }
+
+
+
+        /* =====================================
+           CHANGE QUANTITY
+        ===================================== */
+
+        function changeQuantity(
+            id,
+            value
+        ) {
+
+
+            const item =
+
+                cart.find(
+                    food => food.id === id
+                );
+
+
+            if (item) {
+
+
+                item.quantity += value;
+
+
+                if (
+                    item.quantity <= 0
+                ) {
+
+
+                    cart =
+
+                        cart.filter(
+
+                            food =>
+                            food.id !== id
+
+                        );
+
+
+                }
+
+
+            }
+
+
+            saveCart();
+
+            displayCart();
+
+
+        }
+
+
+
+        /* =====================================
+           REMOVE ITEM
+        ===================================== */
+
+        function removeItem(id) {
+
+
+            cart =
+
+                cart.filter(
+
+                    item =>
+                    item.id !== id
+
+                );
+
+
+            saveCart();
+
+            displayCart();
+
+
+        }
+
+
+
+        /* =====================================
+           PLACE ORDER
+        ===================================== */
+
+        function placeOrder() {
+
+
+            if (cart.length === 0) {
+
+
+                alert(
+                    "Your cart is empty!"
+                );
+
+
+                return;
+
+
+            }
+
+
+            let total = 0;
+
+
+            cart.forEach(function(item) {
+
+
+                total +=
+
+                    item.price *
+                    item.quantity;
+
+
+            });
+
+
+            const order = {
+
+
+                orderId:
+
+                    "ORD" +
+                    Date.now(),
+
+
+                items:
+
+                    [...cart],
+
+
+                total:
+
+                    total,
+
+
+                date:
+
+                    new Date()
+                    .toLocaleString(),
+
+
+                status:
+
+                    "Order Placed"
+
+
+            };
+
+
+            let orders =
+
+                JSON.parse(
+
+                    localStorage.getItem(
+                        "orders"
+                    )
+
+                )
+
+                || [];
+
+
+            orders.push(order);
+
+
+            localStorage.setItem(
+
+                "orders",
+
+                JSON.stringify(orders)
+
+            );
+
+
+            alert(
+
+                "🎉 Order placed successfully!\n\n" +
+
+                "Order ID: " +
+                order.orderId +
+
+                "\nTotal Amount: ₹" +
+                total
+
+            );
+
+
+            cart = [];
+
+
+            saveCart();
+
+            displayCart();
+
+            displayOrders();
+
+
+        }
+
+
+
+        /* =====================================
+           DISPLAY ORDERS
+        ===================================== */
+
+        function displayOrders() {
+
+
+            const orderList =
+
+                document.getElementById(
+                    "orderList"
+                );
+
+
+            const orders =
+
+                JSON.parse(
+
+                    localStorage.getItem(
+                        "orders"
+                    )
+
+                )
+
+                || [];
+
+
+            orderList.innerHTML = "";
+
+
+            if (orders.length === 0) {
+
+
+                orderList.innerHTML =
+
+                    "<p>No orders yet.</p>";
+
+
+                return;
+
+
+            }
+
+
+            orders
+
+                .slice()
+
+                .reverse()
+
+                .forEach(function(order) {
+
+
+                    let foodNames = "";
+
+
+                    order.items.forEach(
+                        function(item) {
+
+
+                            foodNames +=
+
+                                item.name +
+
+                                " (x" +
+
+                                item.quantity +
+
+                                "), ";
+
+
+                        }
+                    );
+
+
+                    orderList.innerHTML += `
+
+                        <div class="order">
+
+
+                            <h3>
+
+                                📋 Order ID:
+
+                                ${order.orderId}
+
+                            </h3>
+
+
+                            <p>
+
+                                <b>
+                                    🍽️ Items:
+                                </b>
+
+                                ${foodNames}
+
+                            </p>
+
+
+                            <p>
+
+                                <b>
+                                    💰 Total:
+                                </b>
+
+                                ₹${order.total}
+
+                            </p>
+
+
+                            <p>
+
+                                <b>
+                                    📅 Date:
+                                </b>
+
+                                ${order.date}
+
+                            </p>
+
+
+                            <p>
+
+                                <b>
+                                    📦 Status:
+                                </b>
+
+                                ${order.status}
+
+                            </p>
+
+
+                        </div>
+
+                    `;
+
+
+                });
+
+
+        }
+
+
+
+        /* =====================================
+           CLEAR HISTORY
+        ===================================== */
+
+        function clearHistory() {
+
+
+            const confirmClear =
+
+                confirm(
+
+                    "Are you sure you want to clear all order history?"
+
+                );
+
+
+            if (confirmClear) {
+
+
+                localStorage.removeItem(
+                    "orders"
+                );
+
+
+                displayOrders();
+
+
+                alert(
+                    "Order history cleared successfully!"
+                );
+
+
+            }
+
+
+        }
+
+
+
+        /* =====================================
+           NAVIGATION
+        ===================================== */
+
+        function scrollToMenu() {
+
+
+            document
+
+                .getElementById("menu")
+
+                .scrollIntoView({
+
+                    behavior:
+                        "smooth"
+
+                });
+
+
+        }
+
+
+
+        function showCart() {
+
+
+            document
+
+                .getElementById("cart")
+
+                .scrollIntoView({
+
+                    behavior:
+                        "smooth"
+
+                });
+
+
+        }
+
+
+
+        /* =====================================
+           START APPLICATION
+        ===================================== */
+
+        displayFood();
+
+        displayCart();
+
+        displayOrders();
+
+
+    </script>
+
+
+</body>
+
+</html>
